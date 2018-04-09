@@ -5,13 +5,9 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
-  import logo from '../assets/logo.png'
+  NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 export default class NavigationBar extends React.Component {
   constructor(props) {
@@ -28,22 +24,19 @@ export default class NavigationBar extends React.Component {
     });
   }
   render() {
-    var pages = [
-      {"name" : "Roadmap", "url" : "/roadmap"},
-      {"name" : "Whitepaper", "url" : "/whitepaper"},
-      {"name" : "FAQ", "url" : "/faq"},
-      {"name" : "About Us", "url" : "/aboutus"}
-    ]
-
-    var navLinkPages = pages.map(function(page){
-      return <NavLink href={page.url} className="mb-0 h3">{page.name}</NavLink>
+    var navLinkPages = this.props.pages.map(function(page){
+      if (page.name === "Home") {
+        return null
+      } else {
+        return <NavLink key={page.name} className="h3" tag={Link} to={page.url}>{page.name}</NavLink>
+      }
     })
 
     return (
       <div>
-        <Navbar color="faded" light expand="lg" fixed="true">
-          <NavbarBrand href="/">
-            <img height="50%" width="50%" src={logo} alt="logo"/>
+        <Navbar light expand="lg" sticky-top="true">
+          <NavbarBrand tag={Link} to="/">
+            <img width="200" height="50" src={logo} alt="logo"/>
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
