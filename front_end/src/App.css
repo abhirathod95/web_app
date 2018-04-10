@@ -24,4 +24,5 @@
 
 .container.spaced .row {
   padding: 2em;  
+  justify-content: center;
 }
